@@ -7,6 +7,7 @@
 #  Last modified 09/08/98;	version 0.2
 #
 $pi = atan2(1,1) * 4;
+$pseudocount = 1E-16; # a pseudo-count to avoid division of 0
 
 #
 #  The section below will open each file in a directory and then 
@@ -27,7 +28,7 @@ chop ($dir);
 # if ($FRAG eq "yes" || $FRAG eq "YES" || $FRAG eq "y" || $FRAG eq "Y") {
 # 	$CRACK = 1;
 #	}
-print STDOUT "Do you want to include B-factors in the output?\n";
+print STDOUT "Do you want to include B-factors in the output? (Y/N)\n";
 $BF = <STDIN>;
 chop ($BF);
 if ($BF eq "y" || $BF eq "Y" || $BF eq "yes" || $BF eq "YES") {
@@ -367,10 +368,16 @@ sub DIHED {
         $MNX = ($QY * $PZ) - ($QZ * $PY);
         $MNY = ($QZ * $PX) - ($QX * $PZ);
         $MNZ = ($QX * $PY) - ($QY * $PX);
-        $COS = (($LNX*$MNX)+($LNY*$MNY)+($LNZ*$MNZ))/((($LNX**2+$LNY**2+$LNZ**2)*($MNX**2+$MNY**2+$MNZ**2))**(1/2));
+        $den = ((($LNX**2+$LNY**2+$LNZ**2)*($MNX**2+$MNY**2+$MNZ**2))**(1/2));
+	$den = $pseudocount if ($den<$pseudocount);
+        $COS = (($LNX*$MNX)+($LNY*$MNY)+($LNZ*$MNZ))/$den;
 	$SIN = (1 - ($COS**2))**(1/2);
-	$NUCOS = (($MNX*$RX)+($MNY*$RY)+($MNZ*$RZ))/((($MNX**2+$MNY**2+$MNZ**2)*($RX**2+$RY**2+$RZ**2))**(1/2));
-	$TOR = (atan2($SIN, $COS)*(180/$pi))*($NUCOS/(($NUCOS**2)**(1/2)));
+	$den = ((($MNX**2+$MNY**2+$MNZ**2)*($RX**2+$RY**2+$RZ**2))**(1/2));
+	$den = $pseudocount if ($den<$pseudocount);
+	$NUCOS = (($MNX*$RX)+($MNY*$RY)+($MNZ*$RZ))/$den;
+	$den = (($NUCOS**2)**(1/2));
+	$den = $pseudocount if ($den<$pseudocount);
+	$TOR = (atan2($SIN, $COS)*(180/$pi))*($NUCOS/$den);
 	if ($TOR < 0){
 		$TOR = 360 + $TOR
 		}

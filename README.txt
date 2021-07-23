@@ -1,6 +1,7 @@
 PRIMOS
+copyright 2021, Chengxin Zhang and the Yale University
 copyright 2003, Carlos Duarte and the Trustees of Columbia University
-current latest revision - 8/28/03
+current latest revision - 07/23/2021
 
 This software is described in the paper:
 Duarte, Wadley & Pyle, Nucl. Acids Res., 31:4755-4761, 2003
