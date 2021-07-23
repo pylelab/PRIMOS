@@ -23,14 +23,14 @@ prisearch.pl
 priworm.pl
 
 and a shell script that runs the program:
-primos
+primos.sh
 
 
 There are two methods for setting up the program depending on your 
 workstation setup.  
 
 Method A:
-1. Make a copy of the "primos" shell script in a directory in your path
+1. Make a copy of the "primos.sh" shell script in a directory in your path
  (e.g. /usr/local/bin).
 2. Make a local directory for the 4 perl scripts and place them there.
 3. Set the environment variable PRIMOSBASE to the directory where the 
@@ -46,7 +46,7 @@ Method A:
 
 Method B:
 1. copy all 5 files to a local directory.
-2. create an alias for the "primos" shell script that points to its
+2. create an alias for the "primos.sh" shell script that points to its
 location.
 3. same as step 3 above.
 
@@ -227,9 +227,9 @@ software if this problem occurs.
 
 **If you receive an error like the following:
 
-./primos: line 8: /prilaunch.pl: No such file or directory
+./primos.sh: line 8: /prilaunch.pl: No such file or directory
 chmod: failed to get attributes of `step1.sh': No such file or directory
-./primos: line 10: ./step1.sh: No such file or directory,
+./primos.sh: line 10: ./step1.sh: No such file or directory,
 
 then you likely have not set the PRIMOSBASE environment. Refer to the
 installation instructions above.
@@ -238,7 +238,7 @@ installation instructions above.
 
 couldn't open step1.sh, check permissions.
 chmod: failed to get attributes of `step1.sh': No such file or directory
-/usr/bin/primos: line 10: ./step1.sh: No such file or directory,
+/usr/bin/primos.sh: line 10: ./step1.sh: No such file or directory,
 
 you are likely running PRIMOS in a non-writable directory. Make sure
 you run PRIMOS in a directory in which you have write access.
